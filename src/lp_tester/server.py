@@ -1,3 +1,4 @@
+import os
 from gevent import monkey
 monkey.patch_all()
 
@@ -14,6 +15,8 @@ PORT = 80
 def current_time(body):
     for counter in xrange(random.randint(1, 50)):
         body.put(str(counter) + '\n')
+        if os.environ.get('NO_SLEEP', False) and True:
+            continue
         time.sleep(1)
 
     body.put(StopIteration)
